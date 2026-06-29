@@ -9,9 +9,8 @@
       "mcp__shadcn",
       "mcp__playwright",
       "mcp__sequential-thinking",
-      "mcp__shadcn__search_items_in_registries",
-      "mcp__context7__resolve-library-id",
-      "mcp__context7__get-library-docs",
+      "mcp__shadcn",
+      "mcp__context7",
       "Skill(code-review)",
       "Skill(run)",
       "PowerShell([System.Environment]::GetEnvironmentVariable\\(\"SLACK_WEBHOOK_URL\", \"User\"\\))",
@@ -42,6 +41,28 @@
           {
             "type": "command",
             "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/stop-hook.sh"
+          }
+        ]
+      }
+    ],
+    "TaskCompleted": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/task-complete-hook.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash(npm run check-all)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/task-complete-hook.sh"
           }
         ]
       }
