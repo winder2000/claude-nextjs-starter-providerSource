@@ -26,7 +26,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { loginSchema, type LoginFormValues } from '@/lib/schemas'
 
-/** 로그인 폼 컴포넌트 */
+/** 세이클럽 스타일 로그인 폼 컴포넌트 */
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
   const form = useForm<LoginFormValues>({
@@ -44,26 +44,37 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="mx-auto w-full max-w-md">
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-center text-2xl font-bold">로그인</CardTitle>
-        <CardDescription className="text-center">
-          계정에 로그인하여 서비스를 이용하세요
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
+    <Card className="border-border/40 xs:mx-4 w-full max-w-md overflow-hidden shadow-lg sm:mx-auto">
+      {/* 헤더 배경 - 세이클럽 스타일 그라데이션 */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-8 sm:px-8">
+        <CardHeader className="space-y-1 p-0">
+          <CardTitle className="text-center text-3xl font-bold text-white">
+            로그인
+          </CardTitle>
+          <CardDescription className="text-center text-blue-100">
+            계정에 로그인하여 서비스를 이용하세요
+          </CardDescription>
+        </CardHeader>
+      </div>
+
+      {/* 폼 영역 */}
+      <CardContent className="px-6 py-8 sm:px-8">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+            {/* 이메일 입력 필드 */}
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>이메일</FormLabel>
+                  <FormLabel className="text-foreground text-sm font-semibold">
+                    이메일
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="email"
                       placeholder="your@email.com"
+                      className="border-input bg-background h-11 rounded-lg border px-4 py-2 text-base transition-colors focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none"
                       {...field}
                     />
                   </FormControl>
@@ -72,30 +83,34 @@ export function LoginForm() {
               )}
             />
 
+            {/* 비밀번호 입력 필드 */}
             <FormField
               control={form.control}
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>비밀번호</FormLabel>
+                  <FormLabel className="text-foreground text-sm font-semibold">
+                    비밀번호
+                  </FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input
                         type={showPassword ? 'text' : 'password'}
                         placeholder="비밀번호를 입력하세요"
+                        className="border-input bg-background h-11 rounded-lg border px-4 py-2 pr-12 text-base transition-colors focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none"
                         {...field}
                       />
                       <Button
                         type="button"
                         variant="ghost"
                         size="icon"
-                        className="absolute top-0 right-0 h-full px-3 py-2 hover:bg-transparent"
+                        className="text-muted-foreground hover:text-foreground absolute top-1/2 right-2 -translate-y-1/2 transform hover:bg-transparent"
                         onClick={() => setShowPassword(!showPassword)}
                       >
                         {showPassword ? (
-                          <EyeOffIcon className="h-4 w-4" />
+                          <EyeOffIcon className="h-5 w-5" />
                         ) : (
-                          <EyeIcon className="h-4 w-4" />
+                          <EyeIcon className="h-5 w-5" />
                         )}
                       </Button>
                     </div>
@@ -105,6 +120,7 @@ export function LoginForm() {
               )}
             />
 
+            {/* 로그인 상태 유지 체크박스 */}
             <FormField
               control={form.control}
               name="rememberMe"
@@ -114,31 +130,47 @@ export function LoginForm() {
                     <Checkbox
                       checked={field.value}
                       onCheckedChange={field.onChange}
+                      className="rounded border-gray-300"
                     />
                   </FormControl>
-                  <FormLabel className="cursor-pointer text-sm font-normal">
+                  <FormLabel className="text-foreground cursor-pointer text-sm font-normal">
                     로그인 상태 유지
                   </FormLabel>
                 </FormItem>
               )}
             />
 
-            <Button type="submit" className="w-full">
+            {/* 로그인 버튼 */}
+            <Button
+              type="submit"
+              className="mt-6 h-11 w-full rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 text-base font-semibold text-white transition-all hover:from-blue-700 hover:to-blue-800 hover:shadow-md"
+            >
               로그인하기
             </Button>
           </form>
         </Form>
 
-        <div className="mt-6 text-center">
+        {/* 회원가입 링크 */}
+        <div className="border-border/50 mt-8 border-t pt-6 text-center">
           <p className="text-muted-foreground text-sm">
             아직 계정이 없으신가요?{' '}
             <Link
               href="/signup"
-              className="text-primary underline-offset-4 hover:underline"
+              className="font-semibold text-blue-600 transition-colors hover:text-blue-700 hover:underline"
             >
               회원가입
             </Link>
           </p>
+        </div>
+
+        {/* 비밀번호 찾기 링크 (선택) */}
+        <div className="mt-3 text-center">
+          <Link
+            href="/forgot-password"
+            className="text-muted-foreground text-xs transition-colors hover:text-blue-600"
+          >
+            비밀번호를 잊으셨나요?
+          </Link>
         </div>
       </CardContent>
     </Card>
