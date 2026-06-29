@@ -11,15 +11,15 @@
       "mcp__sequential-thinking",
       "mcp__shadcn__search_items_in_registries",
       "mcp__context7__resolve-library-id",
-      "mcp__context7__get-library-docs"
+      "mcp__context7__get-library-docs",
+      "Skill(code-review)",
+      "Skill(run)"
     ],
     "deny": [],
     "ask": []
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "playwright"
-  ],
+  "enabledMcpjsonServers": ["playwright"],
   "hooks": {
     "Notification": [
       {

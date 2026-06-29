@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { useMediaQuery } from 'usehooks-ts'
 import { Menu } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -11,9 +10,9 @@ import { MobileNav } from '@/components/navigation/mobile-nav'
 import { Container } from './container'
 import { ThemeToggle } from '@/components/theme-toggle'
 
+/** 헤더 컴포넌트 */
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const isMobile = useMediaQuery('(max-width: 768px)')
 
   return (
     <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
@@ -26,22 +25,24 @@ export function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            {!isMobile && <MainNav />}
+            <div className="hidden md:block">
+              <MainNav />
+            </div>
           </div>
 
           {/* Right Side */}
           <div className="flex items-center gap-4">
-            {!isMobile && (
+            <div className="hidden md:block">
               <Link href="/login">
                 <Button variant="outline" size="sm">
                   로그인
                 </Button>
               </Link>
-            )}
+            </div>
             <ThemeToggle />
 
             {/* Mobile Menu Button */}
-            {isMobile && (
+            <div className="md:hidden">
               <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
                 <SheetTrigger asChild>
                   <Button variant="ghost" size="icon">
@@ -53,7 +54,7 @@ export function Header() {
                   <MobileNav onClose={() => setMobileMenuOpen(false)} />
                 </SheetContent>
               </Sheet>
-            )}
+            </div>
           </div>
         </div>
       </Container>

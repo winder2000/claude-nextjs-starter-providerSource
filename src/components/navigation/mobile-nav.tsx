@@ -4,16 +4,13 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { Separator } from '@/components/ui/separator'
-
-const navItems = [
-  { title: '홈', href: '/' },
-  { title: '로그인', href: '/login' },
-]
+import { NAV_ITEMS } from '@/config/navigation'
 
 interface MobileNavProps {
   onClose: () => void
 }
 
+/** 모바일 네비게이션 컴포넌트 */
 export function MobileNav({ onClose }: MobileNavProps) {
   const pathname = usePathname()
 
@@ -23,7 +20,7 @@ export function MobileNav({ onClose }: MobileNavProps) {
         <h2 className="mb-2 px-2 text-lg font-semibold">메뉴</h2>
         <Separator className="mb-4" />
         <div className="space-y-1">
-          {navItems.map(item => (
+          {NAV_ITEMS.map(item => (
             <Link
               key={item.href}
               href={item.href}

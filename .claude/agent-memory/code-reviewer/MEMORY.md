@@ -1,0 +1,2 @@
+- [사용자 프로필](user_profile.md) — Inflearn Claude Mastery 수강생, Next.js 15 학습 중, 한글 주석/커밋 선호
+- [프로젝트 컨벤션 & 반복 위반 패턴](project_conventions.md) — Forms: RHF+Zod 표준, JSDoc 누락, SSR hydration 위험, 미완성 폼

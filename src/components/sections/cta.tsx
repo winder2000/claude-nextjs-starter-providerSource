@@ -1,6 +1,8 @@
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Container } from '@/components/layout/container'
 
+/** CTA (Call To Action) 섹션 컴포넌트 */
 export function CTASection() {
   return (
     <section className="py-20">
@@ -13,11 +15,22 @@ export function CTASection() {
           </p>
 
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
-            <Button size="lg" className="px-8 text-base">
-              무료로 시작하기
+            <Button size="lg" className="px-8 text-base" asChild>
+              <Link href="/signup">무료로 시작하기</Link>
             </Button>
-            <Button size="lg" variant="outline" className="px-8 text-base">
-              문서 보기
+            <Button
+              size="lg"
+              variant="outline"
+              className="px-8 text-base"
+              asChild
+            >
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                문서 보기
+              </a>
             </Button>
           </div>
 
