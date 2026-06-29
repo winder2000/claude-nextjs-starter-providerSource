@@ -13,7 +13,10 @@
       "mcp__context7__resolve-library-id",
       "mcp__context7__get-library-docs",
       "Skill(code-review)",
-      "Skill(run)"
+      "Skill(run)",
+      "PowerShell([System.Environment]::GetEnvironmentVariable\\(\"SLACK_WEBHOOK_URL\", \"User\"\\))",
+      "PowerShell($val = [System.Environment]::GetEnvironmentVariable\\(\"SLACK_WEBHOOK_URL\", \"User\"\\); if \\($val\\) { \"SET: $val\" } else { \"NOT SET \\(User scope\\)\" }; $val2 = [System.Environment]::GetEnvironmentVariable\\(\"SLACK_WEBHOOK_URL\", \"Machine\"\\); if \\($val2\\) { \"SET \\(Machine\\): $val2\" } else { \"NOT SET \\(Machine scope\\)\" })",
+      "PowerShell($env:CLAUDE_PROJECT_DIR = \"C:\\\\Study\\\\Claude_Code\\\\Inflearn\\\\claude-nextjs-starter-providerSource\"; & \"C:\\\\Study\\\\Claude_Code\\\\Inflearn\\\\claude-nextjs-starter-providerSource\\\\.claude\\\\hooks\\\\notification-hook.ps1\")"
     ],
     "deny": [],
     "ask": []
