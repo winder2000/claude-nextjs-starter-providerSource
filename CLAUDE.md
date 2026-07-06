@@ -1,6 +1,8 @@
 # 🤖 Claude Code 개발 지침
 
-**claude-nextjs-starters**는 Next.js 15.5.3 + React 19 기반 모던 웹 애플리케이션 스타터 템플릿입니다.
+**invoice-web**은 Notion에 입력한 견적서를 클라이언트가 웹 링크로 조회하고 PDF로 다운로드할 수 있는 "노션 기반 견적서 공유 시스템 MVP"입니다. 이 프로젝트는 Next.js 15.5.3 + React 19 기반 스타터킷을 기반으로 구축되었습니다.
+
+> 상세 요구사항은 [`@/docs/PRD.md`](./docs/PRD.md) 참조
 
 ## 🛠️ 핵심 기술 스택
 
