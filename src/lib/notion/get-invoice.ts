@@ -1,8 +1,10 @@
-import { Client, isFullDatabase } from '@notionhq/client'
+import { Client, isFullDatabase, isFullPage } from '@notionhq/client'
+import type { PageObjectResponse } from '@notionhq/client'
 
 import { env } from '@/lib/env'
 import { Invoice } from '@/lib/types/invoice'
 
+import { getRelatedItemPageIds, mapPageToInvoice } from './map-invoice'
 import { mockInvoice } from './mock-data'
 
 /**
@@ -17,32 +19,46 @@ export async function getInvoiceByToken(
     return publicToken === mockInvoice.publicToken ? mockInvoice : null
   }
 
-  const notion = new Client({ auth: env.NOTION_API_KEY })
+  try {
+    const notion = new Client({ auth: env.NOTION_API_KEY })
 
-  const database = await notion.databases.retrieve({
-    database_id: env.NOTION_INVOICE_DATABASE_ID,
-  })
-  if (!isFullDatabase(database)) {
+    const database = await notion.databases.retrieve({
+      database_id: env.NOTION_INVOICE_DATABASE_ID,
+    })
+    if (!isFullDatabase(database)) {
+      return null
+    }
+    const dataSourceId = database.data_sources[0]?.id
+    if (!dataSourceId) {
+      return null
+    }
+
+    const response = await notion.dataSources.query({
+      data_source_id: dataSourceId,
+      filter: {
+        property: 'publicToken',
+        rich_text: { equals: publicToken },
+      },
+    })
+
+    const page = response.results[0]
+    if (!page || !isFullPage(page)) {
+      return null
+    }
+
+    const itemPageIds = getRelatedItemPageIds(page)
+    const itemPages = await Promise.all(
+      itemPageIds.map(itemPageId =>
+        notion.pages.retrieve({ page_id: itemPageId })
+      )
+    )
+    const fullItemPages = itemPages.filter(
+      (itemPage): itemPage is PageObjectResponse => isFullPage(itemPage)
+    )
+
+    return mapPageToInvoice(page, fullItemPages)
+  } catch (error) {
+    console.error('[Notion] 견적서 조회 중 오류가 발생했습니다.', error)
     return null
   }
-  const dataSourceId = database.data_sources[0]?.id
-  if (!dataSourceId) {
-    return null
-  }
-
-  const response = await notion.dataSources.query({
-    data_source_id: dataSourceId,
-    filter: {
-      property: 'publicToken',
-      rich_text: { equals: publicToken },
-    },
-  })
-
-  const page = response.results[0]
-  if (!page) {
-    return null
-  }
-
-  // TODO: 실제 Notion 데이터베이스 스키마가 확정되면 프로퍼티 매핑을 구현한다.
-  return null
 }

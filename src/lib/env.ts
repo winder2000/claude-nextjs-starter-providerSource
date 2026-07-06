@@ -12,6 +12,8 @@ const envSchema = z.object({
   // Notion API 연동 (서버 전용) - 견적서 데이터를 조회할 때 사용
   NOTION_API_KEY: z.string().optional(),
   NOTION_INVOICE_DATABASE_ID: z.string().optional(),
+  // 품목 데이터베이스 (Invoice DB의 Items Relation이 참조하는 별도 DB)
+  NOTION_ITEMS_DATABASE_ID: z.string().optional(),
 })
 
 const result = envSchema.safeParse({
@@ -20,6 +22,7 @@ const result = envSchema.safeParse({
   NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
   NOTION_API_KEY: process.env.NOTION_API_KEY,
   NOTION_INVOICE_DATABASE_ID: process.env.NOTION_INVOICE_DATABASE_ID,
+  NOTION_ITEMS_DATABASE_ID: process.env.NOTION_ITEMS_DATABASE_ID,
 })
 
 if (!result.success) {
